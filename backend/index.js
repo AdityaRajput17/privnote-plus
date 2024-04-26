@@ -1,11 +1,12 @@
 import dotenv from "dotenv"
 dotenv.config()
 import express from "express"
+import cors from "cors"
 import mongoose from "mongoose"
-
 import api from "../backend/Routes/api.route.js"
 
 const app=express()
+app.use(cors())
 const port= process.env.PORT || 8080
 const MONGODB_URL=process.env.MONGODB_URL
 
@@ -21,8 +22,8 @@ mongoose.connect(MONGODB_URL)
         console.log(`Server is running at port ${port}`)
     })
 })
-.catch(()=>{
-    console.log(err);
+.catch((err) => {
+    console.log(err)
 })
 
 
