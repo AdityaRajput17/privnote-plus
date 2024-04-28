@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
 
   return (
@@ -8,15 +8,15 @@ const Navbar = () => {
       </div>
       
       <div className="w-[50%] flex justify-around">
-        <a href="#">Home</a>
-        <a href="#">View</a>
-        <a href="#">About</a>
-        <a href="#">How to use?</a>
+        <Link to="/home">Home</Link>
+        <Link to="/view">View</Link>
+        <Link to="/about">About</Link>
+        <Link to="/howtouse">How to use?</Link>
       </div>
       
       <div className="w-[10%] flex justify-between">
-        <a href="#">Log in</a>
-        <a href="#">Signup</a>
+        <Link to="/login">Log in</Link>
+        <Link to="/signup">Sign up</Link>
       </div>
     </nav>
   )

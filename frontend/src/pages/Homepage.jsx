@@ -1,9 +1,13 @@
-import Navbar from "../components/Navbar/Navbar"
+import { UserContext } from "../context/userContext"
+import { useContext } from "react"
 
 const Homepage = () => {
-  return (
+  const user =useContext(UserContext)
+  console.log(user)
+  return (  
     <>
-      <Navbar/>
+      <h1>HomePage</h1>
+      {<h1>{user.user.name}</h1>}
     </>
   )
 }
