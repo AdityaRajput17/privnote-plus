@@ -15,7 +15,8 @@ const loginController= async (req,res)=>{
                 jwt.sign({name: user.name,email: user.email,id:user._id},process.env.JWT_SECRET,{}
                     ,(err,token)=>{
                     if(err) console.log("error at jwt signing");
-                    res.cookie("token",token).json(user);
+                    res.cookie("token",token).json({message:"login success"});
+                    res.redirect("/profile");
                 })
             }
             else
@@ -80,7 +81,6 @@ const registerController = async (req,res)=>{
 
 const getProfile=(req,res)=>{
     const token=req.cookies.token
-    console.log(token)
     if(token)
     {
         jwt.verify(token,process.env.JWT_SECRET,(err,user)=>{
@@ -88,10 +88,17 @@ const getProfile=(req,res)=>{
             res.json(user);
         })
     }
-   if(!token){
-        res.json({message:"token is not present"})
+//    if(!token){
+//         res.json({message:"token is not present"})
+//     }
+}
+
+const logout=(req,res)=>{
+    try {
+        res.clearCookie("token").json({message:"Logout success"}).redirect("/profile")
+    } catch (error) {
+        console.log("Error while logging out:", error)
     }
 }
 
-
-export {loginController, registerController, getProfile}
+export {loginController, registerController, getProfile, logout}

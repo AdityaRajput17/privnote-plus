@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { registerController, loginController, getProfile } from "../controllers/auth.controller.js"
+import { registerController, loginController, getProfile, logout} from "../controllers/auth.controller.js"
 import cors from "cors"
 const api= Router()
 
@@ -11,5 +11,6 @@ api.use(cors({
 api.post("/register",registerController)
 api.post("/login", loginController)
 api.get("/profile", getProfile)
+api.get("/logout",logout)
 
 export default api

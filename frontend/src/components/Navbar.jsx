@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
-const Navbar = () => {
+import {UserContext} from "../context/userContext"
+import { useContext, useState } from "react";
+import LogoutButton from "./LogoutButton";
 
+const Navbar = () => {
+  const {user}=useContext(UserContext)
+  // console.log(user)
+  
   return (
     <nav className="bg-gray-400 h-16 flex justify-between items-center">
       <div>
@@ -14,10 +20,16 @@ const Navbar = () => {
         <Link to="/howtouse">How to use?</Link>
       </div>
       
-      <div className="w-[10%] flex justify-between">
+      { user ? <div className="w-[10%] flex justify-between">
+        <LogoutButton />
+        </div>
+        :
+        <div className="w-[10%] flex justify-between">
         <Link to="/login">Log in</Link>
         <Link to="/signup">Sign up</Link>
-      </div>
+      </div> 
+       }
+      
     </nav>
   )
 }

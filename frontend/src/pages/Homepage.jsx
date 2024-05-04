@@ -1,13 +1,13 @@
 import { UserContext } from "../context/userContext"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 
 const Homepage = () => {
-  const user =useContext(UserContext)
-  console.log(user)
+  const {user} =useContext(UserContext)
+  
   return (  
     <>
       <h1>HomePage</h1>
-      {<h1>{user.user.name}</h1>}
+      {!!user && <h1>{user.name}</h1>}
     </>
   )
 }

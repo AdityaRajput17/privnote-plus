@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
 const Login = () => {
+
+    const {user,setUser}=useContext(UserContext)
+
     const [Username,setUsername]=useState("")
     const [Password,setPassword]=useState("")
 
@@ -17,6 +21,17 @@ const Login = () => {
         data: {
           email: Username,
           password: Password
+        }
+      }).then((res)=>{
+        if(res.data.message==="login success")
+        {
+          navigate("/home");
+          axios.get("/profile",{
+            withCredentials: true
+          }).then(({data})=>{
+            setUser(data);
+          })
+          
         }
       })
       .catch((err)=>{
