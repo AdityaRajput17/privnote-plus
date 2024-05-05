@@ -22,15 +22,11 @@ const Login = () => {
           email: Username,
           password: Password
         }
-      }).then((res)=>{
+      }).then(async (res)=>{
         if(res.data.message==="login success")
         {
+          setUser(res.data.user);
           navigate("/home");
-          axios.get("/profile",{
-            withCredentials: true
-          }).then(({data})=>{
-            setUser(data);
-          })
           
         }
       })

@@ -15,8 +15,7 @@ const loginController= async (req,res)=>{
                 jwt.sign({name: user.name,email: user.email,id:user._id},process.env.JWT_SECRET,{}
                     ,(err,token)=>{
                     if(err) console.log("error at jwt signing");
-                    res.cookie("token",token).json({message:"login success"});
-                    res.redirect("/profile");
+                    res.cookie("token",token).json({message:"login success",user: user});
                 })
             }
             else
@@ -88,14 +87,15 @@ const getProfile=(req,res)=>{
             res.json(user);
         })
     }
-//    if(!token){
-//         res.json({message:"token is not present"})
-//     }
+   if(!token){
+        console.log("no token")
+        res.status(404)
+    }
 }
 
 const logout=(req,res)=>{
     try {
-        res.clearCookie("token").json({message:"Logout success"}).redirect("/profile")
+        res.clearCookie("token").json({message:"Logout success"})
     } catch (error) {
         console.log("Error while logging out:", error)
     }

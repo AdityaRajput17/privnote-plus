@@ -10,18 +10,20 @@ function LogoutButton() {
     
     const navigate= useNavigate()
     const logout=async()=>{
-        console.log("logout button entered")
+        
         axios.get("/logout")
         .then((res)=>{
             if(res.data.message==="Logout success")
-            navigate("/home")
+            {
+            setUser(null);
+            navigate("/home");
+            }
         })
         .catch((err)=>{
             console.log("error while logging out:", err)
         })
-        setUser(null);
-        console.log("logout button exit")
-        console.log("User after logout is: ",user)
+        
+        // console.log("User after logout is: ",user)
     }
 
   return (
