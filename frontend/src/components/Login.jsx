@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
 
@@ -23,12 +24,18 @@ const Login = () => {
           password: Password
         }
       }).then(async (res)=>{
+        console.log(res)
         if(res.data.message==="login success")
         {
           setUser(res.data.user);
+          toast.success(`Welcome ${res.data.user.name}`);
           navigate("/home");
           
         }
+        else if (res.data.error==="Wrong credentials")
+          {
+            toast.error("Wrong credentials")
+          }
       })
       .catch((err)=>{
         console.log(err)

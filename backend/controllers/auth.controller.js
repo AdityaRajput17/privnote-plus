@@ -6,11 +6,12 @@ const loginController= async (req,res)=>{
     const {email,password}=req.body;
 
     await User.findOne({email})
-    .then((user)=>{ // User Exists Check
+    .then(async(user)=>{ // User Exists Check
         if(user){
             
             //Password Check
-            if(comparePassword(password,user.password))
+            const isCorrectPassword= await comparePassword(password,user.password)
+            if(isCorrectPassword)
             {
                 jwt.sign({name: user.name,email: user.email,id:user._id},process.env.JWT_SECRET,{}
                     ,(err,token)=>{
@@ -20,11 +21,11 @@ const loginController= async (req,res)=>{
             }
             else
             {
-                res.status(401).json({error:"Wrong credentials !"});
+                res.status(200).json({error:"Wrong credentials"});
             }
         }
         else{
-            res.status(404).send("User not found")
+            res.status(200).json({error:"Wrong credentials"});
         }
     })
     .catch((err)=>{
@@ -36,10 +37,11 @@ const registerController = async (req,res)=>{
 
     const {name, email, password}= req.body
     if(!name || !email || !password)       // all three compulsory fields
-    return res.status(404).json({error:"Fields missing"})
+    return res.json({error:"Fields missing"})
 
     if(password.length < 8){
-        res.status(411).json({error: "Password must be of 8 characters"})
+        res.json({error: "Password must be of 8 characters"});
+        return
     }
 
     let userExist=true;

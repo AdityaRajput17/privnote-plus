@@ -9,7 +9,8 @@ import Homepage from './pages/Homepage.jsx'
 import Navbar from './components/Navbar.jsx'
 import axios from 'axios'
 import { UserContextProvider } from './context/userContext.jsx'
-
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
@@ -39,5 +40,17 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <UserContextProvider>
     <RouterProvider router={router}/>
   </UserContextProvider>
+  <ToastContainer
+    position="bottom-right"
+    autoClose={2500}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="light"
+    transition: Bounce/>
   </React.StrictMode>,
 )
