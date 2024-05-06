@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js"
 import { hashPassword } from "../helpers/auth.js"
 
 export const registerController = async (req,res)=>{
-
+    //TODO: Add more validations (Re-Enter password & Check if email exists or not)
     const {name, email, password}= req.body
     if(!name || !email || !password)       // all three compulsory fields
     return res.json({error:"Fields missing"})
