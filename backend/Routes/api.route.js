@@ -3,6 +3,7 @@ import { loginController } from "../controllers/login.controller.js"
 import { logout }  from "../controllers/logout.controller.js"
 import { registerController } from "../controllers/register.controller.js"
 import { getProfile } from "../controllers/getProfile.controller.js"
+import { createNote } from "../controllers/CreateNote.js"
 import cors from "cors"
 const api= Router()
 
@@ -15,5 +16,6 @@ api.post("/register",registerController)
 api.post("/login", loginController)
 api.get("/profile", getProfile)
 api.get("/logout",logout)
+api.post("/note",createNote);
 
 export default api

@@ -3,6 +3,9 @@ import {UserContext} from "../context/userContext"
 import { useContext, useState } from "react";
 import LogoutButton from "./LogoutButton";
 
+//TODO: set-up navbar for small resolutions (mobile)
+//TODO: update the about link to manage
+
 const Navbar = () => {
   const {user}=useContext(UserContext)
   // console.log(user)

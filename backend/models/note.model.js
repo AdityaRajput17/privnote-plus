@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+//TODO: create another field as id which is a String instead of the mongoose id.
+
 const noteSchema= new mongoose.Schema({
     title:{
         type: String,

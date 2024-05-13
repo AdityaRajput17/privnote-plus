@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+//TODO: instead of storing the whole notes in user we can just save the note ids.
+
 const userSchema=new mongoose.Schema({
     name:{
         type: String,
