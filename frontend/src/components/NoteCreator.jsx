@@ -6,6 +6,7 @@ import { UserContext } from '../context/userContext'
 import axios from 'axios'
 const NoteCreator = () => {
 
+  //TODO add validations for password
     const {user}=useContext(UserContext);
 
     const [showOptions,setShowOptions]=useState(false)
@@ -33,7 +34,7 @@ const NoteCreator = () => {
       if(comparePass(noteData.optionData.password,noteData.optionData.cpassword))
       {
         //! post request for note creation
-        console.log("passwords match");
+        console.log(noteData);
         {user ? axios.post("/note",{noteData,email:user.email})
         : axios.post("/note",{noteData,email:""})}
       }
