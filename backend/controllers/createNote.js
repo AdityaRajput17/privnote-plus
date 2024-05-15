@@ -9,6 +9,8 @@ export const createNote= async (req,res)=>{
     const uid= new ShortUniqueId();
     const id=uid.rnd();
 
+    const encryptedNote= await encrypt(noteData.note)
+
     const hashedPassword="";
     if(noteData.optionData.password){
         hashedPassword=await hashPassword(noteData.optionData.password);
@@ -17,7 +19,7 @@ export const createNote= async (req,res)=>{
     const note=new Note(
     {
         id:id,
-        note:noteData.note,
+        note:encryptedNote,
         password:hashedPassword,
         expiry:noteData.optionData.expiry,
         DontWarn:noteData.optionData.DontWarn,
