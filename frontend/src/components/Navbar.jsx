@@ -11,7 +11,7 @@ const Navbar = () => {
   // console.log(user)
   
   return (
-    <nav className="bg-gray-400 h-16 flex justify-between items-center">
+    <nav className="bg-gray-400 h-16 flex justify-between items-center z-100">
       <div>
       <p>PrivNotes</p>
       </div>

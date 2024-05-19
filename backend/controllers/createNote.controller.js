@@ -1,5 +1,5 @@
 import {User} from "../models/user.model.js"
-import {Note} from "../models//note.model.js"
+import {Note} from "../models/note.model.js"
 import ShortUniqueId from "short-unique-id"
 import { hashPassword } from "../helpers/auth.js";
 import { encrypt, decrypt } from "../helpers/encrypt.js";
@@ -11,7 +11,7 @@ export const createNote= async (req,res)=>{
 
     const encryptedNote= await encrypt(noteData.note)
 
-    const hashedPassword="";
+    let hashedPassword="";
     if(noteData.optionData.password){
         hashedPassword=await hashPassword(noteData.optionData.password);
     }
@@ -32,7 +32,7 @@ export const createNote= async (req,res)=>{
         try {     
 
             await  User.updateOne({email:email},{$push: { notes: note } })
-            res.status(200).send("Note created!");
+            res.status(200).send(id);
 
         } catch (error) {
             console.log("Error while creating a note",error)
@@ -43,7 +43,7 @@ export const createNote= async (req,res)=>{
         try {
         
             await  User.updateOne({email:"ADMIN"},{$push: { notes: note } })
-            res.status(200).send("Note created!");
+            res.status(200).send(id);
 
         } catch (error) {
             console.log("Error while creating a note",error)

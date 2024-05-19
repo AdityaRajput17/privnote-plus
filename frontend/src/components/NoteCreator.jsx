@@ -4,7 +4,8 @@ import NoteCreatorOptions from './NoteCreatorOptions'
 import { comparePass } from '../utils/comparePass'
 import { UserContext } from '../context/userContext'
 import axios from 'axios'
-const NoteCreator = () => {
+import NoteLinkDisplay from './NoteLinkDisplay'
+const NoteCreator = ({updateState, updateNoteId}) => {
 
   //TODO add validations for password
     const {user}=useContext(UserContext);
@@ -28,15 +29,21 @@ const NoteCreator = () => {
         setNoteData({...noteData, optionData})
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async (e)=>{
       e.preventDefault();
       //checking passwords match
       if(comparePass(noteData.optionData.password,noteData.optionData.cpassword))
       {
-        //! post request for note creation
+        // post request for note creation
         console.log(noteData);
-        {user ? axios.post("/note",{noteData,email:user.email})
-        : axios.post("/note",{noteData,email:""})}
+        let email="";
+        {user ? email=user.email
+        : email=""}
+
+        const res=await axios.post("/note",{noteData,email:email})
+        const noteId=res.data;
+        updateState(false);
+        updateNoteId(noteId);
       }
     }
   return (

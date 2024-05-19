@@ -11,6 +11,8 @@ import axios from 'axios'
 import { UserContextProvider } from './context/userContext.jsx'
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Viewpage from './pages/Viewpage.jsx'
+import Displaypage from './pages/Displaypage.jsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
@@ -32,6 +34,15 @@ const router=createBrowserRouter([
     path:"/home",
     element:<><Navbar/><Homepage/></>
   },
+  {
+    path:"/view",
+    element:<><Navbar/><Viewpage/></>
+  },
+  {
+    path:"/view/:id",
+    element:<><Navbar/><Displaypage/></>
+  },
+  
   
 ])
 
