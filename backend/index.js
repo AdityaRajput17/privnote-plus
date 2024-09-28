@@ -5,6 +5,7 @@ import cors from "cors"
 import mongoose from "mongoose"
 import api from "../backend/Routes/api.route.js"
 import cookieParser from "cookie-parser"
+import { destructionCheck } from "./helpers/destructionCheck.js"
 
 const app=express()
 
@@ -25,6 +26,8 @@ mongoose.connect(MONGODB_URL)
     app.listen(port,()=>{
         console.log(`Server is running at port ${port}`)
     })
+
+    destructionCheck.start()  // starting cron to check for expiry of notes every minute.
 })
 .catch((err) => {
     console.log(err)

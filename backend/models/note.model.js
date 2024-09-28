@@ -13,12 +13,17 @@ const noteSchema= new mongoose.Schema({
         type: String,
     },
     expiry:{
-        type: String,
-        required:true,
+        type: Date,
+        
     },
     DontWarn:{
         type: Boolean,
         required:true,
+    },
+    isViewed:{
+        type: Boolean,
+        required:true,
+
     },
     // user:{
     //     type: mongoose.Schema.Types.ObjectId,

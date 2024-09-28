@@ -3,7 +3,7 @@ import {Note} from "../models/note.model.js"
 import ShortUniqueId from "short-unique-id"
 import { hashPassword } from "../helpers/auth.js";
 import { encrypt, decrypt } from "../helpers/encrypt.js";
-
+import {expiryConversion} from "../helpers/expiryConversion.js"
 export const createNote= async (req,res)=>{
     const {noteData, email} = req.body;
     const uid= new ShortUniqueId();
@@ -16,15 +16,17 @@ export const createNote= async (req,res)=>{
         hashedPassword=await hashPassword(noteData.optionData.password);
     }
     
+    let expiryOfNote = expiryConversion(noteData.optionData.expiry);
     const note=new Note(
     {
         id:id,
         note:encryptedNote,
         password:hashedPassword,
-        expiry:noteData.optionData.expiry,
+        expiry:expiryOfNote,
         DontWarn:noteData.optionData.DontWarn,
-
+        isViewed: ( expiryOfNote===null ? true : false )
     })
+
     note.save()
 
     if(email)
