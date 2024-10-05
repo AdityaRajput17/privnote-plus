@@ -19,6 +19,7 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
       {
         setAllowed(true);
         setNoteData(res.data.note)
+        //TODO: destroy the note if no expiry
       }
   };
 

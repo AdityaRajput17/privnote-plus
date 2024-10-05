@@ -13,35 +13,41 @@ import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Viewpage from './pages/Viewpage.jsx'
 import Displaypage from './pages/Displaypage.jsx'
+import Layout from './components/Layout.jsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
 
 const router=createBrowserRouter([
   {
-    path:"/",
-    element:<><Navbar/><Landing/></>
-  },
-  {
-    path:"/login",
-    element:<><Navbar/><Loginpage/></>
-  },
-  {
-    path:"/signup",
-    element:<><Navbar/><Registerpage/></>
-  },
-  {
-    path:"/home",
-    element:<><Navbar/><Homepage/></>
-  },
-  {
-    path:"/view",
-    element:<><Navbar/><Viewpage/></>
-  },
-  {
-    path:"/view/:id",
-    element:<><Navbar/><Displaypage/></>
-  },
+    element: <Layout/>,
+    children:[
+      {
+        path:"/",
+        element:<><Navbar/><Landing/></>
+      },
+      {
+        path:"/login",
+        element:<><Navbar/><Loginpage/></>
+      },
+      {
+        path:"/signup",
+        element:<><Navbar/><Registerpage/></>
+      },
+      {
+        path:"/home",
+        element:<><Navbar/><Homepage/></>
+      },
+      {
+        path:"/view",
+        element:<><Navbar/><Viewpage/></>
+      },
+      {
+        path:"/view/:id",
+        element:<><Navbar/><Displaypage/></>
+      },
+    ]
+  }
   
   
 ])
