@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Viewpage from './pages/Viewpage.jsx'
 import Displaypage from './pages/Displaypage.jsx'
 import Layout from './components/Layout.jsx'
+import Managepage from './pages/Managepage.jsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
@@ -45,6 +46,10 @@ const router=createBrowserRouter([
       {
         path:"/view/:id",
         element:<><Navbar/><Displaypage/></>
+      },
+      {
+        path:"/manage",
+        element:<><Navbar/><Managepage/></>
       },
     ]
   }

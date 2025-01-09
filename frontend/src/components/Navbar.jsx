@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="w-[50%] flex justify-around">
         <Link to="/home">Home</Link>
         <Link to="/view">View</Link>
-        <Link to="/about">About</Link>
+        <Link to="/manage">Manage</Link>
         <Link to="/howtouse">How to use?</Link>
       </div>
       
