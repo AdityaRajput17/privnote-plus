@@ -35,7 +35,7 @@ const NoteCreator = ({updateState, updateNoteId}) => {
       if(comparePass(noteData.optionData.password,noteData.optionData.cpassword))
       {
         // post request for note creation
-        console.log(noteData);
+  
         let email="";
         {user ? email=user.email
         : email=""}

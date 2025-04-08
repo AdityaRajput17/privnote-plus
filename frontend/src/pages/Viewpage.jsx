@@ -4,39 +4,48 @@ import {toast} from "react-toastify"
 import WarningPage from './Warningpage';
 import { useNavigate } from 'react-router-dom';
 const Viewpage = () => {
-
+    //TODO: find a way to make warning button toggle 
     const [id,setId]=useState(null);
-    const [warningPage,setWarningPage]=useState(false);
+    //const [warningPage,setWarningPage]=useState(false);
     const [expiry,setExpiry]=useState("after");
     const navigate=useNavigate();
 
-    const handleClick=async()=>{
-      try {
-        const res= await axios.get(`/view/${id}`)
-        console.log(res)
+    const navigateToNote=(res)=>{
+      navigate(`/view/${id}`, { 
+        state: { passwordProtected: res.data.passwordProtected } 
+    })}
 
-        
-        if(res.data==="No Note"){
-          toast.error("Incorrect ID")
-        }
-        else if(res.data.warn==="true"){
-          setExpiry(res.data.expiry)
-          setWarningPage(true);
-        }
-        
-          navigate(`/view/${id}`, { state: { passwordProtected: res.data.passwordProtected } })
-
-      
-      } catch (error) {
-        console.log(error)
-      }
-        
-        // console.log(res)
+    const handleClick = async () => {
+  try {
+    const res = await axios.get(`/view/${id}`);
+    
+    
+    if (res.data === "No Note") {
+      return toast.error("Incorrect ID");
     }
+    setExpiry(res.data.expiry)
+    // if (res.data.warn === "true") {  //this opens warning page again n again
+    //   setWarningPage(true);
+    //   ;
+    //   return; // Don't navigate yet
+    // }
+    
+    // navigate(`/view/${id}`, { 
+    //   state: { passwordProtected: res.data.passwordProtected } 
+    navigateToNote(res)
+    
+    // if (expiry === 'after') {
+    //   await axios.delete(`/delete/${id}`);
+    // }
+  }
+   catch (error) {
+    console.log(error);
+  }
+};
+
 
   return (
     <div>
-      {warningPage && <WarningPage onContinue={setWarningPage} expiry={expiry}/>}
       <h1>ViewPage</h1>
       <h1>Enter Note ID</h1>
 

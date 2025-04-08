@@ -13,8 +13,8 @@ import { User } from "../models/user.model.js";
    let documents= await getDocuments(notes);
 
    //removing unwanted details
-   documents= documents.map(({ _id, createdAt }) => ({
-    _id,
+   documents= documents.map(({ id, createdAt }) => ({
+    id,
     createdAt,
     }));
 

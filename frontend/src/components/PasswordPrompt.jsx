@@ -10,7 +10,7 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     const res=await axios.post(`/display/${id}/pass`,{password})
-    console.log(res)
+    
     if(res.data.message==="incorrect")
       {
         toast.error("Incorrect password")
