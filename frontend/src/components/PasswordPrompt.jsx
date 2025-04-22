@@ -13,7 +13,7 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
     
     if(res.data.message==="incorrect")
       {
-        toast.error("Incorrect password")
+        toast.error("Invalid password")
       }
     if(res.data.message==="correct")
       {

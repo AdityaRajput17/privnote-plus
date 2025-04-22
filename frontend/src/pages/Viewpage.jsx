@@ -23,7 +23,7 @@ const Viewpage = () => {
             const res = await axios.get(`/view/${id}`);
             
             if (res.data === "No Note") {
-                return toast.error("Incorrect ID");
+                return toast.error("Invalid ID");
             }
             
             setExpiry(res.data.expiry);

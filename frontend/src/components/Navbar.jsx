@@ -39,8 +39,8 @@ const Navbar = () => {
               </>
             ) : (
               <div className="hidden sm:flex sm:space-x-4">
-                <Link to="/login" className="text-gray-600 hover:text-gray-900 transition-colors">Log in</Link>
-                <Link to="/signup" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                <Link to="/login" className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors">Log in</Link>
+                <Link to="/signup" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
                   Sign up
                 </Link>
               </div>

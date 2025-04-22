@@ -1,18 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import PasswordPrompt from "../components/PasswordPrompt"
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-
+import { toast } from 'react-toastify'
+import { handleNoteData } from '../utils/handleNoteData'
 
 const Displaypage = () => {
-    
     const location = useLocation();
-    
+    const navigate = useNavigate();
     const { id } = useParams();
-    const note = location?.state?.passwordProtected?.note;
-    const [noteData, setNoteData] = useState(note);
-    const isPasswordProtected = location?.state?.passwordProtected.protect;
-    const [allowed, setAllowed] = useState(!isPasswordProtected);
+    const [noteData, setNoteData] = useState(null);
+    const [isPasswordProtected, setIsPasswordProtected] = useState(false);
+    const [allowed, setAllowed] = useState(false);
+
+    useEffect(() => {
+        const fetchNote = async () => {
+            try {
+                const res = await axios.get(`/view/${id}`);
+                
+                if (res.data === "No Note") {
+                    toast.error("Incorrect ID");
+                    navigate("/view");
+                    return;
+                }
+
+                handleNoteData(res.data, setIsPasswordProtected, setNoteData, setAllowed);
+            } catch (error) {
+                console.log(error);
+                navigate("/view");
+            }
+        };
+
+        if (location?.state?.data) {
+            handleNoteData(location.state.data, setIsPasswordProtected, setNoteData, setAllowed);
+        } else {
+            fetchNote();
+        }
+    }, [id, location?.state?.data, navigate]);
 
     useEffect(() => {
         if (allowed) {

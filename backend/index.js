@@ -27,7 +27,7 @@ mongoose.connect(MONGODB_URL)
         console.log(`Server is running at port ${port}`)
     })
 
-    destructionCheck.start()  // starting cron to check for expiry of notes every minute.
+    /*destructionCheck.start()*/
 })
 .catch((err) => {
     console.log(err)

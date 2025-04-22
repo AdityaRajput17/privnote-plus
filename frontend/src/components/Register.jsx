@@ -21,9 +21,9 @@ function Register() {
             }
         }).then((res) => {
             const {error} = res.data;
-            if(error) toast.error(error);
+            if(error) toast.error("Registration failed");
             else {
-                toast.success("Registered Successfully!");
+                toast.success("Account created");
                 navigate("/login")
             }
         })

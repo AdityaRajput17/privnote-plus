@@ -22,11 +22,11 @@ const Login = () => {
         }).then(async (res) => {
             if(res.data.message === "login success") {
                 setUser(res.data.user);
-                toast.success(`Welcome ${res.data.user.name}`);
+                toast.success(`Welcome, ${res.data.user.name}`);
                 navigate("/home");
             }
             else if (res.data.error === "Wrong credentials") {
-                toast.error("Wrong credentials")
+                toast.error("Invalid credentials")
             }
         })
         .catch((err) => {

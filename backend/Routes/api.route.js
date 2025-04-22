@@ -9,6 +9,7 @@ import { viewNote } from "../controllers/viewNote.controller.js"
 import { passCheck } from "../controllers/passCheck.controller.js"
 import { deleteNote } from "../controllers/deleteNote.controller.js"
 import { userNoteList } from "../controllers/userNoteList.controller.js"
+import { cron } from "../controllers/cron.controller.js"
 const api= Router()
 
 api.use(cors({
@@ -24,6 +25,7 @@ api.post("/note",createNote);
 api.get("/view/:id",viewNote);
 api.post("/display/:id/pass",passCheck);
 api.post("/manage",userNoteList);
-
+api.get("/cron",cron);
 api.delete("/delete/:id",deleteNote);
+
 export default api
