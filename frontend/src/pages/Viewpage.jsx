@@ -48,7 +48,7 @@ const Viewpage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-start justify-center bg-gray-50 pt-16">
             <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-sm">
                 <div>
                     <h2 className="text-center text-3xl font-extrabold text-gray-900">

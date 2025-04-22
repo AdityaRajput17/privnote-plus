@@ -24,7 +24,7 @@ const Displaypage = () => {
     }, [allowed, id]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-start justify-center bg-gray-50">
             <div className="max-w-3xl w-full p-8 bg-white rounded-lg shadow-sm">
                 {isPasswordProtected && !allowed ? (
                     <PasswordPrompt 
