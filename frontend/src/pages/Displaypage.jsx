@@ -1,41 +1,46 @@
-
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PasswordPrompt from "../components/PasswordPrompt"
 import { useLocation, useParams } from 'react-router-dom'
 import axios from 'axios'
 
-//TODO: Setup a useffect on allowed, whenever the allowed state is changed we can send a http request to destroy the note.
 
 const Displaypage = () => {
-
-    const [allowed,setAllowed]=useState(false);
-    const [noteData,setNoteData]=useState("");
-    const location=useLocation();
-    const passwordProtected=location.state.passwordProtected.protect;
-    console.log(passwordProtected)
-    const note=location?.state?.passwordProtected?.note;
+    
+    const location = useLocation();
+    
     const { id } = useParams();
+    const note = location?.state?.passwordProtected?.note;
+    const [noteData, setNoteData] = useState(note);
+    const isPasswordProtected = location?.state?.passwordProtected.protect;
+    const [allowed, setAllowed] = useState(!isPasswordProtected);
 
     useEffect(() => {
-      console.log('useffect ran!!')
-      if (allowed) {
-        const deleteNote= async()=>{
-        await axios.delete(`/delete/${id}`);
-        console.log('deleted')
-      }
-      
-      deleteNote()
-    }
-  }, [allowed, id])
- 
+        if (allowed) {
+            const deleteNote = async() => {
+                await axios.delete(`/delete/${id}`);
+            }
+            deleteNote();
+        }
+    }, [allowed, id]);
 
-  return (
-    <div>
-      {!allowed && !note && <PasswordPrompt setAllowed={setAllowed} setNoteData={setNoteData}/>}
-      {note && <h1>{note}</h1>}
-      {allowed && <h1>{noteData}</h1>}
-    </div>
-  )
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="max-w-3xl w-full p-8 bg-white rounded-lg shadow-sm">
+                {isPasswordProtected && !allowed ? (
+                    <PasswordPrompt 
+                        setAllowed={setAllowed} 
+                        setNoteData={setNoteData}
+                    />
+                ) : (
+                    <div className="prose max-w-none">
+                        <pre className="whitespace-pre-wrap font-sans">
+                            {allowed && noteData}
+                        </pre>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 }
 
-export default Displaypage
+export default Displaypage;

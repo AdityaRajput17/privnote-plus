@@ -5,7 +5,6 @@ export const viewNote=async(req,res)=>{
     const id=req.params.id;
     const note=await Note.findOne({id:id})
     if(!note){
-        //TODO: handle in frontend if no note present
         res.send("No Note");
     }
     else{

@@ -10,7 +10,7 @@ export const getProfile=(req,res)=>{
         })
     }
    if(!token){
-        console.log("no token")
+        
         res.status(404)
     }
 }

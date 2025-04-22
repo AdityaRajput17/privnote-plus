@@ -20,7 +20,7 @@ const Managepage = () => {
 
     const fetchNotes = async () => {
         try {
-            const response = await axios.post("/manage", { user });
+            const response = await axios.post("/manage", { email: user.email });
             setNotes(response.data);
             setLoading(false);
         } catch (error) {

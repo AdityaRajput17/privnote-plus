@@ -4,6 +4,7 @@ import ShortUniqueId from "short-unique-id"
 import { hashPassword } from "../helpers/auth.js";
 import { encrypt, decrypt } from "../helpers/encrypt.js";
 import {expiryConversion} from "../helpers/expiryConversion.js"
+
 export const createNote= async (req,res)=>{
     const {noteData, email} = req.body;
     const uid= new ShortUniqueId();
@@ -27,28 +28,25 @@ export const createNote= async (req,res)=>{
         isViewed: ( expiryOfNote===null ? true : false )
     })
 
-    note.save()
+    try {
+        await note.save();
 
-    if(email)
-    {
-        try {     
-
-            await  User.updateOne({email:email},{$push: { notes: note } })
-            res.status(200).send(id);
-
-        } catch (error) {
-            console.log("Error while creating a note",error)
+        if(email) {
+            await User.updateOne(
+                {email: email},
+                {$push: { notes: id }}
+            );
+        } else {
+            // For non-logged in users, store under ADMIN
+            await User.updateOne(
+                {email: "ADMIN"},
+                {$push: { notes: id }}
+            );
         }
-    }
-    else{
-        //create note when not login-ed
-        try {
         
-            await  User.updateOne({email:"ADMIN"},{$push: { notes: note } })
-            res.status(200).send(id);
-
-        } catch (error) {
-            console.log("Error while creating a note",error)
-        }
+        res.status(200).send(id);
+    } catch (error) {
+        console.log("Error while creating a note:", error);
+        res.status(500).send("Error creating note");
     }
 }
