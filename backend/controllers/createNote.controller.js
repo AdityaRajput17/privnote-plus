@@ -25,7 +25,7 @@ export const createNote= async (req,res)=>{
         password:hashedPassword,
         expiry:expiryOfNote,
         DontWarn:noteData.optionData.DontWarn,
-        isViewed: ( expiryOfNote===null ? true : false )
+        isViewed: ( expiryOfNote===null ? true : false ),
     })
 
     try {

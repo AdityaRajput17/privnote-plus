@@ -17,7 +17,7 @@ import Layout from './components/Layout.jsx'
 import Managepage from './pages/Managepage.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import { ErrorBoundary } from 'react-error-boundary'
-
+import Howtousepage from './pages/Howtousepage.jsx'
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
@@ -53,6 +53,10 @@ const router=createBrowserRouter([
       {
         path:"/manage",
         element:<><Managepage/></>
+      },
+      {
+        path:"/howtouse",
+        element:<><Howtousepage/></>
       },
       {
         path:"*",
