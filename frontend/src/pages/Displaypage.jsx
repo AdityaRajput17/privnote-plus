@@ -11,8 +11,9 @@ const Displaypage = () => {
     const [allowed,setAllowed]=useState(false);
     const [noteData,setNoteData]=useState("");
     const location=useLocation();
-    //const passwordProtected=location.state.passwordProtected.protect;
-    const note=location.state.passwordProtected.note;
+    const passwordProtected=location.state.passwordProtected.protect;
+    console.log(passwordProtected)
+    const note=location?.state?.passwordProtected?.note;
     const { id } = useParams();
 
     useEffect(() => {

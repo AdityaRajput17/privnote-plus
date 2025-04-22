@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, {useState} from 'react'
 import {toast} from "react-toastify"
-import WarningPage from './Warningpage';
-import { useNavigate } from 'react-router-dom';
+
+import { Navigate, useNavigate } from 'react-router-dom';
 const Viewpage = () => {
     //TODO: find a way to make warning button toggle 
     const [id,setId]=useState(null);
@@ -40,6 +40,7 @@ const Viewpage = () => {
   }
    catch (error) {
     console.log(error);
+    navigate("/view")
   }
 };
 

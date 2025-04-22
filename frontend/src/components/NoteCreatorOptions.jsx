@@ -1,46 +1,66 @@
-import React,{useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 const NoteCreatorOptions = ({getData}) => {
-    const [optionData,setOptionData]=useState({
+    const [optionData, setOptionData] = useState({
         password: "",
         cpassword: "",
         expiry: "after",
         DontWarn: false,
     })
 
-    //sending data to NoteCreator component whenever there is change in optionData
-    useEffect(()=>{
+    useEffect(() => {
         getData(optionData)
-    },[optionData])
+    }, [optionData])
 
-  return (
-      <div className='flex flex-col gap-5'>
+    return (
+        <div className="space-y-6 p-4 bg-gray-50 rounded-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <input 
+                        type="password"
+                        className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Password"
+                        value={optionData.password}
+                        onChange={(e) => setOptionData({...optionData, password: e.target.value})}
+                    />
+                </div>
+                <div>
+                    <input 
+                        type="password"
+                        className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Confirm password"
+                        value={optionData.cpassword}
+                        onChange={(e) => setOptionData({...optionData, cpassword: e.target.value})}
+                    />
+                </div>
+            </div>
 
-        <div className='flex gap-5'>
-          <input className="border border-gray-400 rounded-md px-2 py-1"
-          placeholder='Password' value={optionData.password} onChange={(e)=>{setOptionData({...optionData ,password: e.target.value})}}></input>
-          <input className="border border-gray-400 rounded-md px-2 py-1"
-          placeholder='Confirm password' value={optionData.cpassword} onChange={(e)=>{setOptionData({...optionData ,cpassword: e.target.value})}}></input>
+            <div className="flex flex-col space-y-2">
+                <label className="text-sm font-medium text-gray-700">Note self-destructs after:</label>
+                <select 
+                    className="w-full md:w-64 px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    onChange={(e) => setOptionData({...optionData, expiry: e.target.value})}
+                >
+                    <option value="after">after reading it</option>
+                    <option value="1h">1 hour from now</option>
+                    <option value="24h">24 hours from now</option>
+                    <option value="7d">7 days from now</option>
+                    <option value="30d">30 days from now</option>
+                </select>
+            </div>
+
+            <div className="flex items-center space-x-3">
+                <input 
+                    type="checkbox"
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    onChange={(e) => setOptionData({...optionData, DontWarn: e.target.checked})}
+                />
+                <label className="text-sm text-gray-700">
+                    Do not warn before showing and destroying the note
+                </label>
+            </div>
         </div>
-
-        <div className='flex gap-5'>
-          <label>Note self-destructs after:</label>
-          <select onChange={(e)=>{setOptionData({...optionData ,expiry: e.target.value})}}>
-            <option value="after">after reading it</option>
-            <option value="1h">1 hour from now</option>
-            <option value="24h">24 hour from now</option>
-            <option value="7d">7 days from now</option>
-            <option value="30d">30 days from now</option>
-          </select>
-        </div>
-
-        <div className="flex gap-5">
-            <input type="checkbox" onChange={(e)=>{setOptionData({...optionData ,DontWarn: e.target.checked})}}/>
-            <p>Do not warn before showing and destroying the note</p>
-        </div>
-
-      </div>
-  )
+    )
 }
 
 export default NoteCreatorOptions

@@ -15,6 +15,9 @@ import Viewpage from './pages/Viewpage.jsx'
 import Displaypage from './pages/Displaypage.jsx'
 import Layout from './components/Layout.jsx'
 import Managepage from './pages/Managepage.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
+import { ErrorBoundary } from 'react-error-boundary'
+
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true
@@ -25,31 +28,35 @@ const router=createBrowserRouter([
     children:[
       {
         path:"/",
-        element:<><Navbar/><Landing/></>
+        element:<><Landing/></>
       },
       {
         path:"/login",
-        element:<><Navbar/><Loginpage/></>
+        element:<><Loginpage/></>
       },
       {
         path:"/signup",
-        element:<><Navbar/><Registerpage/></>
+        element:<><Registerpage/></>
       },
       {
         path:"/home",
-        element:<><Navbar/><Homepage/></>
+        element:<><Homepage/></>
       },
       {
         path:"/view",
-        element:<><Navbar/><Viewpage/></>
+        element:<><Viewpage/></>
       },
       {
         path:"/view/:id",
-        element:<><Navbar/><Displaypage/></>
+        element:<><Displaypage/></>
       },
       {
         path:"/manage",
-        element:<><Navbar/><Managepage/></>
+        element:<><Managepage/></>
+      },
+      {
+        path:"*",
+        element:<ErrorPage/>
       },
     ]
   }
@@ -59,6 +66,7 @@ const router=createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+  <ErrorBoundary fallback={ErrorPage}>
   <UserContextProvider>
     <RouterProvider router={router}/>
   </UserContextProvider>
@@ -74,5 +82,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     pauseOnHover
     theme="light"
     transition: Bounce/>
+    </ErrorBoundary>
   </React.StrictMode>,
 )
