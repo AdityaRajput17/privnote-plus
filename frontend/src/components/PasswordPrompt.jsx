@@ -23,17 +23,30 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
   };
 
   return (
-    <div className=''>
-      <h1>The Note is password protected!</h1>
-      <h1>Enter the password:</h1>
-      <div className='flex flex-col'>
-        <input
-        className='border w-[40%]'
-        type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}
-        />
-        <button className='w-14' onClick={handleSubmit}>
-          submit
-        </button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-sm">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900">Password Protected Note</h1>
+          <p className="mt-2 text-gray-600">Please enter the password to view this note</p>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button 
+            type="submit"
+            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </div>
   );

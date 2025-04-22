@@ -13,7 +13,7 @@ const NoteCreatorOptions = ({getData}) => {
     }, [optionData])
 
     return (
-        <div className="space-y-6 p-4 bg-gray-50 rounded-lg">
+        <div className="space-y-6 p-4 sm:p-6 bg-gray-50 rounded-lg">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <input 
