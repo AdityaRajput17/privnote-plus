@@ -10,8 +10,8 @@ export const userNoteList=async(req,res)=>{
         }
 
         // Fetch all notes using the stored IDs
-        const notes=await Note.find({id: {$in: user.notes}});
-        
+        const notes = await Note.find({ id: { $in: user.notes } });
+        console.log("Found notes:", notes);
         res.status(200).json(notes);
     } catch (error) {
         console.log("Error fetching user notes:", error);

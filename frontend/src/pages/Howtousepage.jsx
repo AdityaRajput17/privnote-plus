@@ -129,7 +129,7 @@ function Howtousepage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Security Features</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="text-lg font-medium text-gray-900 mb-2">End-to-End Encryption</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Note Encryption</h3>
                 <p className="text-gray-600">
                   All notes are encrypted before being stored, ensuring your data remains secure.
                 </p>
