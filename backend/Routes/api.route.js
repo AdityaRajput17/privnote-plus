@@ -4,18 +4,12 @@ import { logout }  from "../controllers/logout.controller.js"
 import { registerController } from "../controllers/register.controller.js"
 import { getProfile } from "../controllers/getProfile.controller.js"
 import { createNote } from "../controllers/createNote.controller.js"
-import cors from "cors"
 import { viewNote } from "../controllers/viewNote.controller.js"
 import { passCheck } from "../controllers/passCheck.controller.js"
 import { deleteNote } from "../controllers/deleteNote.controller.js"
 import { userNoteList } from "../controllers/userNoteList.controller.js"
 import { cron } from "../controllers/cron.controller.js"
 const api= Router()
-
-api.use(cors({
-    credentials:true,
-    origin: process.env.FRONTEND_URL
-}))
 
 api.post("/register",registerController)
 api.post("/login", loginController)
