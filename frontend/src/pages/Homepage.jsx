@@ -15,10 +15,15 @@ const Homepage = () => {
       <NoteCreator updateState={setNoteState} updateNoteId={setNoteId}/> 
       :
       <>
-      <NoteLinkDisplay link={hostname+"/view/"+noteId}/>
-      <div className="flex gap-3">
-        <h3>Create another privNote?</h3>
-        <button onClick={()=>{setNoteState(true)}}>New Note</button>
+      <NoteLinkDisplay link={"https://"+hostname+"/view/"+noteId}/>
+      <div className="flex items-center max-w-3xl w-full mx-auto mt-6 gap-4 px-6">
+        <h3 className="text-lg text-gray-700">Create another privNote?</h3>
+        <button 
+          onClick={()=>{setNoteState(true)}}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        >
+          New Note
+        </button>
       </div>
       </>
       }

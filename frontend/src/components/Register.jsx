@@ -11,6 +11,13 @@ function Register() {
 
     const submit = async (e) => {
         e.preventDefault();
+        
+        // Password validation
+        if (Password.length < 8) {
+            toast.error("Password must be at least 8 characters long");
+            return;
+        }
+
         await axios({
             method: 'post',
             url: "/register",
@@ -21,7 +28,7 @@ function Register() {
             }
         }).then((res) => {
             const {error} = res.data;
-            if(error) toast.error("Registration failed");
+            if(error) toast.error(error);
             else {
                 toast.success("Account created");
                 navigate("/login")
