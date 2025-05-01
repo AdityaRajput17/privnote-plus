@@ -41,6 +41,16 @@ app.use(urlencoded({extended: true}))
 //using api routes
 app.use("/", api)
 
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        error: "Internal Server Error",
+        message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+    });
+});
+
+
 mongoose.connect(MONGODB_URL)
 .then(()=>{
     console.log("Database connected");
@@ -52,7 +62,8 @@ mongoose.connect(MONGODB_URL)
     /*destructionCheck.start()*/
 })
 .catch((err) => {
-    console.log(err)
+    console.error("Database connection error:", err);
+    process.exit(1);
 })
 
 
