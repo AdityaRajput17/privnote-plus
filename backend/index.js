@@ -9,13 +9,16 @@ import { destructionCheck } from "./helpers/destructionCheck.js"
 
 const app=express()
 
+// CORS configuration
 app.use(cors({
-    "origin": process.env.FRONTEND_URL,
-    "credentials": true,
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-  }))
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["set-cookie"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+}))
 
 const port= process.env.PORT || 8080
 const MONGODB_URL=process.env.MONGODB_URL
