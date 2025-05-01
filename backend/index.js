@@ -7,7 +7,7 @@ import api from "../backend/Routes/api.route.js"
 import cookieParser from "cookie-parser"
 import { destructionCheck } from "./helpers/destructionCheck.js"
 
-const app=express()
+const app = express()
 
 const allowedOrigins = [
     'https://privnote-plus.vercel.app',
@@ -48,9 +48,6 @@ app.use(cors({
     optionsSuccessStatus: 204
 }))
 
-const port= process.env.PORT || 8080
-const MONGODB_URL=process.env.MONGODB_URL
-
 app.use(express.json())
 app.use(cookieParser())
 app.use(urlencoded({extended: true}))
@@ -58,20 +55,23 @@ app.use(urlencoded({extended: true}))
 //using api routes
 app.use("/", api)
 
-
-mongoose.connect(MONGODB_URL)
-.then(()=>{
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URL)
+.then(() => {
     console.log("Database connected");
-
-    app.listen(port,()=>{
-        console.log(`Server is running at port ${port}`)
-    })
-
-    /*destructionCheck.start()*/
 })
 .catch((err) => {
     console.error("Database connection error:", err);
-    process.exit(1);
-})
+});
+
+// Only start the server if we're not in a serverless environment
+if (process.env.NODE_ENV !== 'production') {
+    const port = process.env.PORT || 8080;
+    app.listen(port, () => {
+        console.log(`Server is running at port ${port}`);
+    });
+}
+
+export default app;
 
 
