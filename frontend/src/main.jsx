@@ -19,7 +19,7 @@ import ErrorPage from './pages/ErrorPage.jsx'
 import { ErrorBoundary } from 'react-error-boundary'
 import Howtousepage from './pages/Howtousepage.jsx'
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = process.env.BACKEND_URL;
 axios.defaults.withCredentials = true
 
 const router=createBrowserRouter([
