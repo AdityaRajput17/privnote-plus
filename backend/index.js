@@ -9,6 +9,17 @@ import { destructionCheck } from "./helpers/destructionCheck.js"
 
 const app=express()
 
+// Handle OPTIONS requests
+app.options('*', cors({
+    origin: 'https://privnote-plus.vercel.app',
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
+    exposedHeaders: ["set-cookie"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+}));
+
 // CORS configuration
 app.use(cors({
     origin: 'https://privnote-plus.vercel.app',
