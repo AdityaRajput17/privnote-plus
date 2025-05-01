@@ -16,16 +16,16 @@ export const loginController= async (req,res)=>{
                 jwt.sign({name: user.name,email: user.email,id:user._id},process.env.JWT_SECRET,{}
                     ,(err,token)=>{
                     if(err) console.log("error at jwt signing");
-                    res.cookie("token",token).json({message:"login success",user: user});
+                    res.cookie("token",token).status(200).json({message:"login success",user: user});
                 })
             }
             else
             {
-                res.status(200).json({error:"Wrong credentials"});
+                res.status(400).json({error:"Wrong credentials"});
             }
         }
         else{
-            res.status(200).json({error:"Wrong credentials"});
+            res.status(400).json({error:"Wrong credentials"});
         }
     })
     .catch((err)=>{

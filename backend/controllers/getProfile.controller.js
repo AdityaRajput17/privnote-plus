@@ -13,10 +13,10 @@ export const getProfile = async (req, res) => {
                 console.error("Token verification error:", err);
                 return res.status(401).json({ error: "Invalid or expired token" });
             }
-            res.json(user);
+            return res.status(200).json(user);
         });
     } catch (error) {
         console.error("Get profile error:", error);
-        res.status(500).json({ error: "Internal server error" });
+        return res.status(500).json({ error: "Internal server error" });
     }
 }
