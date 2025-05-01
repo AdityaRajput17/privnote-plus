@@ -11,10 +11,10 @@ const app=express()
 
 // CORS configuration
 app.use(cors({
-    origin: ['https://privnote-plus.vercel.app', 'http://localhost:5173'],
+    origin: 'https://privnote-plus.vercel.app',
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
     exposedHeaders: ["set-cookie"],
     preflightContinue: false,
     optionsSuccessStatus: 204

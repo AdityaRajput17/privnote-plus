@@ -19,9 +19,11 @@ import ErrorPage from './pages/ErrorPage.jsx'
 import { ErrorBoundary } from 'react-error-boundary'
 import Howtousepage from './pages/Howtousepage.jsx'
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// Axios configuration
+axios.defaults.baseURL = 'https://privnote-plus-api.vercel.app';
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Accept'] = 'application/json';
 
 const router=createBrowserRouter([
   {
