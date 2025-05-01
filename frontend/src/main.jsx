@@ -20,7 +20,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import Howtousepage from './pages/Howtousepage.jsx'
 
 // Axios configuration
-axios.defaults.baseURL = 'https://privnote-plus-api.vercel.app';
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';

@@ -9,9 +9,20 @@ import { destructionCheck } from "./helpers/destructionCheck.js"
 
 const app=express()
 
+const allowedOrigins = [
+    'https://privnote-plus.vercel.app',
+    'http://localhost:5173',  // Vite default dev server
+];
+
 // Handle OPTIONS requests
 app.options('*', cors({
-    origin: 'https://privnote-plus.vercel.app',
+    origin: function(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
@@ -22,7 +33,13 @@ app.options('*', cors({
 
 // CORS configuration
 app.use(cors({
-    origin: 'https://privnote-plus.vercel.app',
+    origin: function(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
@@ -40,15 +57,6 @@ app.use(urlencoded({extended: true}))
 
 //using api routes
 app.use("/", api)
-
-// Global error handler
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({
-        error: "Internal Server Error",
-        message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
-    });
-});
 
 
 mongoose.connect(MONGODB_URL)
