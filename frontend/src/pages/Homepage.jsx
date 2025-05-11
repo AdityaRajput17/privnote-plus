@@ -9,7 +9,7 @@ const Homepage = () => {
   const[noteState,setNoteState]=useState(true);
   const[noteId,setNoteId]=useState(null);
   return (  
-    <div className="h-screen w-screen flex flex-col pr-9 sm:pr-8">
+    <div className="h-screen w-full flex flex-col px-6 box-border">
 
       { noteState ? 
       <NoteCreator updateState={setNoteState} updateNoteId={setNoteId}/> 

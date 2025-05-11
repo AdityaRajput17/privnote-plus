@@ -27,8 +27,8 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-sm">
+    <div className=" flex items-top justify-center bg-gray-50">
+      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-sm pt-10">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900">Password Protected Note</h1>
           <p className="mt-2 text-gray-600">Please enter the password to view this note</p>
