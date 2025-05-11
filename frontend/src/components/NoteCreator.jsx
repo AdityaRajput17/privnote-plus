@@ -35,7 +35,7 @@ const NoteCreator = ({updateState, updateNoteId}) => {
         if(!comparePass(noteData.optionData.password, noteData.optionData.cpassword)) {
             return toast.error("Passwords do not match")
         }
-        else if(!isNoteEmpty){
+        else if(isNoteEmpty){
             return toast.error("Note cannot be empty")
         }
         else{
