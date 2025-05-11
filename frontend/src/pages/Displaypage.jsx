@@ -44,7 +44,7 @@ const Displaypage = () => {
 
     //deleting the note after fetching if self-destruction is 'null'
     useEffect(() => {
-        if (allowed && (res.expiry === null)) {
+        if (allowed && (res.expiry === (null || undefined))) {
             const deleteNote = async() => {
                 await axios.delete(`/delete/${id}`);
                 console.log("deleted!")
@@ -64,7 +64,7 @@ const Displaypage = () => {
                 ) : (
                     <div className="prose max-w-none">
                         <pre className="whitespace-pre-wrap font-sans">
-                            {allowed ? noteData : <Loader/>}
+                            {allowed ? `${noteData}` : <Loader/>}
                         </pre>
                     </div>
                 )}

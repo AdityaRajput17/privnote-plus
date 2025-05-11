@@ -1,15 +1,18 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import {toast} from "react-toastify"
 import Loader from "../components/Loader"
 
 const PasswordPrompt = ({ setAllowed, setNoteData }) => {
+  
   const [password, setPassword] = useState("");
   const [loading,setLoading]= useState(false);
   const {id}=useParams();
+  const navigate=useNavigate();
 
   const handleSubmit = async(e) => {
+    try{
     e.preventDefault();
     setLoading(true);
     const res=await axios.post(`/display/${id}/pass`,{password})
@@ -24,6 +27,13 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
         setNoteData(res.data.note)
       }
       setLoading(false);
+    }
+    catch(error){
+      console.log(error)
+      setLoading(false)
+      navigate('/view')
+      return toast.error("Something went wrong! Try again")
+    }
   };
 
   return (
