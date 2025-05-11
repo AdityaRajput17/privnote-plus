@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, {useState} from 'react'
 import {toast} from "react-toastify"
 import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const Viewpage = () => {
     const [id, setId] = useState("");
+    const [Loading,setLoading]= useState(false);
     //const [expiry, setExpiry] = useState("after");
     //const [warningPage,setWarningPage]=useState(false);
     const navigate = useNavigate();
@@ -20,8 +22,9 @@ const Viewpage = () => {
 
     const handleClick = async () => {
         try {
+            setLoading(true);
             const res = await axios.get(`/view/${id}`);
-            
+            setLoading(false);
             //setExpiry(res.data.expiry);
             // if (res.data.warn === "true") {  //this opens warning page again n again
             //   setWarningPage(true);
@@ -40,6 +43,7 @@ const Viewpage = () => {
         catch (error) {
             console.log(error);
             toast.error("Invalid ID");
+            setLoading(false);
             navigate("/view");
         }
     };
@@ -65,9 +69,10 @@ const Viewpage = () => {
                     />
                     <button 
                         onClick={handleClick}
-                        className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        className="flex justify-center items-center w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        disabled={Loading}
                     >
-                        View Note
+                        {Loading ? <Loader color='white'/> : 'View Note'}
                     </button>
                 </div>
             </div>

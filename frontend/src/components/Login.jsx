@@ -3,15 +3,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 const Login = () => {
     const {user, setUser} = useContext(UserContext)
     const [Username, setUsername] = useState("")
     const [Password, setPassword] = useState("")
+    const [Loading, setLoading] = useState(false)
     const navigate = useNavigate();
 
     const submit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         await axios({
             method: 'post',
             url: "/login",
@@ -31,6 +34,9 @@ const Login = () => {
         })
         .catch((err) => {
             console.log(err)
+        })
+        .finally(()=>{
+            setLoading(false);
         });
     }
 
@@ -70,8 +76,9 @@ const Login = () => {
                         <button
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            disabled={Loading}
                         >
-                            Sign in
+                            {Loading ? <Loader color='white'/> : 'Sign in'}
                         </button>
                     </div>
                 </form>

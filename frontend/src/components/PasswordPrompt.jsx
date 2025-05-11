@@ -2,13 +2,16 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {toast} from "react-toastify"
+import Loader from "../components/Loader"
 
 const PasswordPrompt = ({ setAllowed, setNoteData }) => {
   const [password, setPassword] = useState("");
+  const [loading,setLoading]= useState(false);
   const {id}=useParams();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setLoading(true);
     const res=await axios.post(`/display/${id}/pass`,{password})
     
     if(res.data.message==="incorrect")
@@ -20,6 +23,7 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
         setAllowed(true);
         setNoteData(res.data.note)
       }
+      setLoading(false);
   };
 
   return (
@@ -42,9 +46,10 @@ const PasswordPrompt = ({ setAllowed, setNoteData }) => {
           </div>
           <button 
             type="submit"
-            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="flex justify-center items-center w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            disabled={loading}
           >
-            Submit
+            {loading ? <Loader color='white'/> : 'Submit'}
           </button>
         </form>
       </div>

@@ -7,10 +7,12 @@ import axios from 'axios'
 import NoteLinkDisplay from './NoteLinkDisplay'
 import checkNoteEmpty from '../utils/checkNoteEmpty'
 import { toast } from 'react-toastify'
+import Loader from '../components/Loader'
 
 const NoteCreator = ({updateState, updateNoteId}) => {
     const {user} = useContext(UserContext);
     const [showOptions, setShowOptions] = useState(false)
+    const [loading ,setLoading]= useState(false);
     const [noteData, setNoteData] = useState({
         note: "",
         optionData: {
@@ -40,7 +42,9 @@ const NoteCreator = ({updateState, updateNoteId}) => {
         }
         else{
             let email = user ? user.email : "";
+            setLoading(true);
             const res = await axios.post("/note", {noteData, email: email})
+            setLoading(false);
             const noteId = res.data;
             updateState(false);
             updateNoteId(noteId);
@@ -67,8 +71,9 @@ const NoteCreator = ({updateState, updateNoteId}) => {
                     <button 
                         type="submit"
                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                        disabled={loading}
                     >
-                        Create Note
+                        {loading ? <Loader color='white'/> : 'Create Note'}
                     </button>
                 </div>
             </form>

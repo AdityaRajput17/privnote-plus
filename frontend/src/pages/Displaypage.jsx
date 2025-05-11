@@ -4,6 +4,7 @@ import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { handleNoteData } from '../utils/handleNoteData'
+import Loader from '../components/Loader'
 
 const Displaypage = () => {
     const location = useLocation();
@@ -40,6 +41,8 @@ const Displaypage = () => {
         }
     }, [id, location?.state?.data, navigate]);
 
+
+    //deleting the note after fetching if self-destruction is 'null'
     useEffect(() => {
         if (allowed && (res.expiry === null)) {
             const deleteNote = async() => {
@@ -61,7 +64,7 @@ const Displaypage = () => {
                 ) : (
                     <div className="prose max-w-none">
                         <pre className="whitespace-pre-wrap font-sans">
-                            {allowed && noteData}
+                            {allowed ? noteData : <Loader/>}
                         </pre>
                     </div>
                 )}

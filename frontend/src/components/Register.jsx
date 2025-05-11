@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import Loader from '../components/Loader'
 
 function Register() {
     const [Username, setUsername] = useState("")
     const [Password, setPassword] = useState("")
     const [name, setName] = useState("")
+    const [loading,setLoading]= useState(false)
     const navigate = useNavigate()
 
     const submit = async (e) => {
@@ -17,7 +19,7 @@ function Register() {
             toast.error("Password must be at least 8 characters long");
             return;
         }
-
+        setLoading(true);
         await axios({
             method: 'post',
             url: "/register",
@@ -27,15 +29,15 @@ function Register() {
                 name: name
             }
         }).then((res) => {
-            const {error} = res.data;
-            if(error) toast.error(error);
-            else {
                 toast.success("Account created");
                 navigate("/login")
-            }
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err.res)
+            return toast.error(err.response.data.error)
+        })
+        .finally(()=>{
+            setLoading(false);
         });
     }
 
@@ -85,8 +87,9 @@ function Register() {
                         <button
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            disabled={loading}
                         >
-                            Sign up
+                            {loading ? <Loader color='white'/> : 'Sign up'}
                         </button>
                     </div>
                 </form>
