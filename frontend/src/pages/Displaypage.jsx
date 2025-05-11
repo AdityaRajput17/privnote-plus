@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import PasswordPrompt from "../components/PasswordPrompt"
 import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -13,10 +13,12 @@ const Displaypage = () => {
     const [isPasswordProtected, setIsPasswordProtected] = useState(false);
     const [allowed, setAllowed] = useState(false);
 
+    let res=useRef()    
+
     useEffect(() => {
         const fetchNote = async () => {
             try {
-                const res = await axios.get(`/view/${id}`);
+                res.current = await axios.get(`/view/${id}`);
                 
                 if (res.data === "No Note") {
                     toast.error("Incorrect ID");
@@ -39,9 +41,10 @@ const Displaypage = () => {
     }, [id, location?.state?.data, navigate]);
 
     useEffect(() => {
-        if (allowed) {
+        if (allowed && (res.expiry === null)) {
             const deleteNote = async() => {
                 await axios.delete(`/delete/${id}`);
+                console.log("deleted!")
             }
             deleteNote();
         }

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Viewpage = () => {
     const [id, setId] = useState("");
-    const [expiry, setExpiry] = useState("after");
+    //const [expiry, setExpiry] = useState("after");
     //const [warningPage,setWarningPage]=useState(false);
     const navigate = useNavigate();
 
@@ -22,11 +22,7 @@ const Viewpage = () => {
         try {
             const res = await axios.get(`/view/${id}`);
             
-            if (res.data === "No Note") {
-                return toast.error("Invalid ID");
-            }
-            
-            setExpiry(res.data.expiry);
+            //setExpiry(res.data.expiry);
             // if (res.data.warn === "true") {  //this opens warning page again n again
             //   setWarningPage(true);
             //   ;
@@ -43,6 +39,7 @@ const Viewpage = () => {
         }
         catch (error) {
             console.log(error);
+            toast.error("Invalid ID");
             navigate("/view");
         }
     };

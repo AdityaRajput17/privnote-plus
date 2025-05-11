@@ -5,6 +5,8 @@ import { comparePass } from '../utils/comparePass'
 import { UserContext } from '../context/userContext'
 import axios from 'axios'
 import NoteLinkDisplay from './NoteLinkDisplay'
+import checkNoteEmpty from '../utils/checkNoteEmpty'
+import { toast } from 'react-toastify'
 
 const NoteCreator = ({updateState, updateNoteId}) => {
     const {user} = useContext(UserContext);
@@ -29,7 +31,14 @@ const NoteCreator = ({updateState, updateNoteId}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(comparePass(noteData.optionData.password, noteData.optionData.cpassword)) {
+        let isNoteEmpty = checkNoteEmpty(noteData.note)
+        if(!comparePass(noteData.optionData.password, noteData.optionData.cpassword)) {
+            return toast.error("Passwords do not match")
+        }
+        else if(!isNoteEmpty){
+            return toast.error("Note cannot be empty")
+        }
+        else{
             let email = user ? user.email : "";
             const res = await axios.post("/note", {noteData, email: email})
             const noteId = res.data;
