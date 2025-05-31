@@ -20,14 +20,12 @@ const Displaypage = () => {
         const fetchNote = async () => {
             try {
                 res.current = await axios.get(`/view/${id}`);
-                
-                if (res.data === "No Note") {
+                if (res.current.data === "No Note") {
                     toast.error("Incorrect ID");
                     navigate("/view");
                     return;
                 }
-
-                handleNoteData(res.data, setIsPasswordProtected, setNoteData, setAllowed);
+                handleNoteData(res.current.data, setIsPasswordProtected, setNoteData, setAllowed);
             } catch (error) {
                 console.log(error);
                 navigate("/view");
