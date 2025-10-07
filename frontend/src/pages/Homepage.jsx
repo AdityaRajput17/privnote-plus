@@ -1,5 +1,6 @@
 import { UserContext } from "../context/userContext"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import NoteCreator from "../components/NoteCreator"
 import NoteLinkDisplay from "../components/NoteLinkDisplay"
 const Homepage = () => {
@@ -8,6 +9,15 @@ const Homepage = () => {
   const {hostname}=window.location;
   const[noteState,setNoteState]=useState(true);
   const[noteId,setNoteId]=useState(null);
+  const location = useLocation();
+
+  // Reset to NoteCreator whenever navigating to the homepage (including clicking Home while on "/home")
+  useEffect(() => {
+    if (location.pathname === "/home") {
+      setNoteState(true);
+      setNoteId(null);
+    }
+  }, [location.key, location.pathname]);
   return (  
     <div className="h-screen w-full flex flex-col px-6 box-border">
 
