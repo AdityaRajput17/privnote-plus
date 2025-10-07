@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/userContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Loader from '../components/Loader';
+import LoginToView from '../components/LoginToView';
 
 const Managepage = () => {
     const [notes, setNotes] = useState([]);
@@ -39,7 +40,9 @@ const Managepage = () => {
         }
     };
 
-    if (!isLogin) return <div className="p-4 text-center">Please login to view notes</div>;
+    if (!isLogin) return (
+        <LoginToView/>
+    );
     if (loading) return <div className="flex items-center justify-center"><Loader/></div>;
     if (error) return <div className="p-4 text-center text-red-500">{error}</div>;
 
