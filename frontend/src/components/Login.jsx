@@ -28,12 +28,10 @@ const Login = () => {
                 toast.success(`Welcome, ${res.data.user.name}`);
                 navigate("/home");
             }
-            else if (res.data.error === "Wrong credentials") {
-                toast.error("Invalid credentials")
-            }
         })
         .catch((err) => {
             console.log(err)
+            toast.error("Invalid credentials")
         })
         .finally(()=>{
             setLoading(false);
